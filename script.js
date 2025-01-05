@@ -1,68 +1,78 @@
-let humanScore = 0;
 let computerScore = 0;
+let humanScore = 0;
 
-function getComputerChoise() {
-	let randNum = Math.random();
-	if (randNum < 0.33) {
+// get computer choice
+function getComputerChoice() {
+	let randomNumber = Math.random();
+
+	if (randomNumber <= 0.33) {
 		return "rock";
-	} else if (randNum < 0.66) {
+	} else if (randomNumber <= 0.66) {
 		return "paper";
 	} else {
-		return "scissor";
+		return "scissors";
 	}
 }
 
-function getHumanChoise() {
-	let humanChoise = prompt("Enter your choice(rock/paper/scissor): ");
+// get human choice
+function getHumanChoice() {
+	// when press esc or cancel prompt it returns null, returns empty string if user press ok without entering in input
+	let input = prompt("Enter between rock/paper/scissors: ");
 
-	if (humanChoise.toLocaleLowerCase() === "rock") {
-		return "rock";
-	} else if (humanChoise.toLocaleLowerCase() === "paper") {
-		return "paper";
-	} else if (humanChoise.toLocaleLowerCase() === "scissor") {
-		return "scissor";
-	} else {
+	if (input === null) {
 		return null;
 	}
-}
 
-function playRound(humanChoise, computerChoise) {
-	const computerChoise = getComputerChoise();
-	const humanChoise = getHumanChoise();
-	console.log(`Your choice: ${humanChoise} 
-                 Computer choise: ${computerChoise}`);
+	input = input.toLowerCase();
+	if (input === "rock" || input === "paper" || input === "scissors") {
+		return input;
+	} else {
+		alert("Error: Invalid input. Enter between rock/paper/scissors");
 
-	if (computerChoise === humanChoise) {
-		console.log("Draw! No one wins");
-	} else if (computerChoise === "rock") {
-		if (humanChoise === "paper") {
-			console.log(`You win! Paper beats Rock`);
-			humanScore++;
-		} else {
-			console.log(`You lose! Scissor beats Rock`);
-			computerScore++;
-		}
-	} else if (computerChoise === "scissor") {
-		if (humanChoise === "rock") {
-			console.log(`You win! Rock beats scissor`);
-			humanScore++;
-		} else {
-			console.log(`You lose! Scissor beats Paper`);
-			computerScore++;
-		}
-	} else if (computerChoise === "paper") {
-		if (humanChoise === "scissor") {
-			console.log(`You win! Scissor beats paper`);
-			humanScore++;
-		} else {
-			console.log(`You lose! Paper beats Rock`);
-			computerScore++;
-		}
+		// add return for recursive calling. read below to understand
+		// When you call a function recursively, you need to ensure that each recursive call returns a value back to the original caller. Otherwise, the original function call won't get the result from the subsequent call.
+		return getHumanChoice();
 	}
 }
+
+//play 1 round
+function playRound(humanChoice, computerChoice) {
+	if (humanChoice === computerChoice) {
+		alert(
+			`Draw! Both choose ${humanChoice}.\nYour score: ${humanScore}.\nComputer score: ${computerScore}.`
+		);
+	} else if (
+		(humanChoice === "rock" && computerChoice === "scissors") ||
+		(humanChoice === "paper" && computerChoice === "rock") ||
+		(humanChoice === "scissors" && computerChoice === "paper")
+	) {
+		alert(`You win! ${humanChoice} beats ${computerChoice}.\nYour score: ${++humanScore}.\nComputer score: ${computerScore}.`);
+	} else {
+		alert(`You lose! ${computerChoice} beats ${humanChoice}.\nYour score: ${humanScore}.\nComputer score: ${++computerScore}`);
+	}
+}
+// playRound(getHumanChoice(), getComputerChoice());
 
 function playGame() {
 	for (let i = 1; i <= 5; i++) {
-        
-    }
+		const computerChoice = getComputerChoice();
+		const humanChoice = getHumanChoice();
+
+		// if human choice null then don't call playRound
+		if (humanChoice) {
+			playRound(humanChoice, computerChoice);
+		} else {
+			alert("Game Cancelled!");
+			return;
+		}
+	}
+}
+
+playGame();
+if (humanScore === computerScore) {
+	alert(`And the winner is ...... drum rolls .......No one!`);
+} else if (humanScore > computerScore) {
+	alert(`And the winner is ...... drum rolls .......You!\nYou won!!`);
+} else {
+	alert(`And the winner is ...... drum rolls .......Computer!\nYou loose :(`);
 }
