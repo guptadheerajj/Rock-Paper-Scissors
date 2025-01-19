@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=Rubik+Pixels&display=swap");
+
+html {
+	box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+.btn img {
+	max-height: 160px;
+	display: block;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	font-family: "Pixelify Sans", serif;
+	font-optical-sizing: auto;
+	font-style: normal;
+
+	background-color: rgb(171, 35, 209);
+}
+
+h1 {
+	font-size: 3rem;
+	text-align: center;
+}
+
+.score-cont {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	margin: 2rem 0 4rem;
+	min-width: 350px;
+}
+
+.score-cont img {
+	height: 100px;
+}
+
+.btn-container {
+	display: flex;
+	gap: 1rem;
+	flex-wrap: wrap;
+	justify-content: center;
+
+	margin: 0 8px 2rem;
+}
+
+.h-score-cont, .c-score-cont {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.score {
+	font-size: 1.5rem;
+	color: #82ffee;
+}
+
+.round-info {
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 4px;
+	margin-bottom: 32px;
+
+	font-size: 1.5rem;
+}
+
+.round-info strong {
+	color: #82ffee;
+}
